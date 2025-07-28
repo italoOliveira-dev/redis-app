@@ -1,0 +1,10 @@
+
+services:
+  redis-server:
+    image: redis
+    container_name: redis-server
+  node-app:
+    container_name: node-app
+    build: .
+    ports:
+      - "8080:8081"
