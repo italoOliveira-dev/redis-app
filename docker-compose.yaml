@@ -8,3 +8,5 @@ services:
     build: .
     ports:
       - "8090:8081"
+    depends_on:
+      - redis-server

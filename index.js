@@ -1,7 +1,9 @@
-const app = require("express");
-const cliente = require("redis");
+import express from 'express';
+import { createClient } from 'redis';
 
 const app = express();
+app.disable('x-powered-by');
+
 const cliente = createClient({
    host: 'redis-server',
    port: 6379
