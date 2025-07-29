@@ -1,14 +1,15 @@
 FROM node:alpine
 
-RUN addgroup -S node \
-    && adduser -S node -G node -h /home/node -D
+RUN addgroup -S node-app \
+    && adduser -S node-app -G node-app -h /home/node-app -D
 
 WORKDIR /usr/application
-RUN chown node:node /usr/application
-USER node
 
 COPY ./package.json ./
 COPY ./package-lock.json ./
+
+RUN chown -R node-app:node-app /usr/application
+USER node-app
 
 RUN npm install --ignore-scripts
 
