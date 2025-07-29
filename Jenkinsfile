@@ -22,5 +22,10 @@ pipeline{
             sh './teste-app.sh'
          }
       }
+      stage('shutdown dos container de teste') {
+         steps {
+            sh 'docker compose down --rmi all -v --remove-orphans'
+         }
+      }
    }
 }
