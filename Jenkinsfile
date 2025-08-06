@@ -1,23 +1,40 @@
 pipeline {
    agent any
    stages {
-      stage('Rodar testes com cobertura') {
+      stage('Instalar dependências') {
          steps {
             sh 'npm install'
+         }
+      }
+
+      stage('Rodar testes com cobertura') {
+         steps {
             script {
                try {
-                  sh 'npm test'
+                  sh 'npm test -- --coverage'
                } catch (err) {
-                  echo "Testes falharam, mas continuando para gerar cobertura"
+                  echo "Nenhum teste foi executado ou houve falha — pipeline continuará para forçar cobertura 0%"
                }
             }
          }
       }
 
-      stage('Verificar cobertura') {
+      stage('Forçar cobertura zero se não houver testes') {
          steps {
-            sh 'ls -lh coverage'
-            sh 'cat coverage/lcov.info | head -n 10'
+            script {
+               def lcov = 'coverage/lcov.info'
+               sh 'mkdir -p coverage'
+               if (!fileExists(lcov)) {
+                  writeFile file: lcov, text: '''TN:
+                  SF:fake.js
+                  DA:1,0
+                  DA:2,0
+                  end_of_record'''
+                  echo "Nenhum relatório de cobertura real encontrado — relatório falso criado com cobertura 0%"
+               } else {
+                  echo "Relatório de cobertura encontrado — usando relatório real"
+               }
+            }
          }
       }
 
