@@ -4,6 +4,10 @@
       "redis": "2.8.0"
    },
    "scripts": {
-      "start": "node index.js"
+      "start": "node index.js",
+      "test": "jest --coverage"
+   },
+   "devDependencies": {
+      "jest": "^30.0.5"
    }
 }
