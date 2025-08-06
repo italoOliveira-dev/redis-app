@@ -1,6 +1,11 @@
 pipeline{
    agent any
    stages{
+      stage('Checkout SCM') {
+         steps {
+               checkout scm
+            }
+      }
       stage('build da imagem docker') {
          steps {
             sh 'docker build -t devops/app .'
