@@ -27,9 +27,13 @@ pipeline {
                scannerHome = tool 'sonar-scanner';
             }
             withSonarQubeEnv('sonar-server') {
-               sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=redis-app -Dsonar.sources=. \
-                  -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.token=${env.SONAR_AUTH_TOKEN} \
-                  -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info"
+               sh "${scannerHome}/bin/sonar-scanner \
+                  -Dsonar.projectKey=redis-app \
+                  -Dsonar.sources=. \
+                  -Dsonar.host.url=${env.SONAR_HOST_URL} \
+                  -Dsonar.token=${env.SONAR_AUTH_TOKEN} \
+                  -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+                  -Dsonar.exclusions=coverage/**,**/*.html,**/*.spec.js,node_modules/**"
             }
          }
       }
