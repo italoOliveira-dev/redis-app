@@ -2,7 +2,7 @@ import express from 'express';
 import { createClient } from 'redis';
 
 const app = express();
-app.disable('x-powered-by');
+// app.disable('x-powered-by');
 
 const cliente = createClient({
    host: 'redis-server',
