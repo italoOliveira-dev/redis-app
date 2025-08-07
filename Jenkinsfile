@@ -100,9 +100,9 @@ pipeline {
                   passwordVariable: 'PASSWORD'
                )]) {
                   sh """
-                     docker login -u $USERNAME -p $PASSWORD $NEXUS_URL
-                     docker tag devops/app:latest $NEXUS_URL/devops/app:latest
-                     docker push $NEXUS_URL/devops/app:latest
+                     docker login -u $USERNAME -p $PASSWORD ${NEXUS_URL}
+                     docker tag devops/app:latest ${NEXUS_URL}/devops/app:latest
+                     docker push ${NEXUS_URL}/devops/app:latest
                   """
                }
             }
